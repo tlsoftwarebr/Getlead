@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>API</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container" style="margin-top: 20px;">
+			<div class="col-md-6">
+				<form>
+					<div class="form-group">
+						<label for="exampleInputName">Nome</label>
+						<input type="text" class="form-control" id="exampleInputName" placeholder="Informe seu nome">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail">Email</label>
+						<input type="email" class="form-control" id="exampleInputEmail"  placeholder="Informe seu email">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputFone">Telefone</label>
+						<input type="text" class="form-control" id="exampleInputFone" placeholder="Telefone">
+					</div>
+				  <button type="button" id="send" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
+<script>
+	$('#exampleInputFone').focus(function(event) {
+		/* Act on the event */
+		$('#exampleInputFone').mask('(00) 00000-0000');
+	});
+
+	$('#send').click(function(event) {
+		/* Act on the event */
+		var nome 		= $('#exampleInputName').val(); //obtem nome do Lead
+		var email 		= $('#exampleInputEmail').val(); //obtem email do Lead
+		var telefone 	= $('#exampleInputFone').val(); //obtem telefone do Lead
+		var token 		= 'token'; //token de Integração com o Getlead
+		var campanha 	= 'campanha'; //codigo da campanha (não obrigatório)
+
+		$.ajax({
+			url: 'https://getlead.net/api.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				'nome' 		: nome,
+				'email'		: email,
+				'telefone'	: telefone,
+				'token'		: token,
+				'campanha'	: campanha
+			},
+
+			success : function(data){
+				alert(data.msg);
+			}
+		});
+		
+	});
+</script>
